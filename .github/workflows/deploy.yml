@@ -36,7 +36,10 @@ jobs:
       run: flutter config --enable-web
       
     - name: Build web
-      run: flutter build web --release --base-href "/local_keep_flutter/"
+      run: flutter build web --release --base-href "/"
+      
+    - name: List build contents
+      run: ls -la build/web/
       
     - name: Add .nojekyll file
       run: touch build/web/.nojekyll
