@@ -1,0 +1,74 @@
+# Miscellaneous
+*.class
+*.log
+*.pyc
+*.swp
+.DS_Store
+.atom/
+.build/
+.buildlog/
+.history
+.svn/
+.swiftpm/
+migrate_working_dir/
+
+# Flutter/Dart/Pub related
+.dart_tool/
+.packages
+.pub-cache/
+.pub/
+build/
+
+# O/S related
+.DS_Store
+*.swp
+
+# IDEs and editors
+.idea/
+*.iml
+*.ipr
+*.iws
+.vscode/
+
+# Flutter specific
+.flutter-plugins
+.flutter-plugins-dependencies
+.flutter-versions
+.metadata
+android/key.properties
+
+# iOS
+ios/Flutter/Flutter.framework
+ios/Flutter/Flutter.podspec
+ios/Flutter/Generated.xcconfig
+ios/Flutter/AppFrameworkInfo.plist
+ios/Pods/
+ios/Runner.xcworkspace/
+ios/Podfile.lock
+
+# macOS
+macos/Flutter/Flutter.framework
+macos/Flutter/Flutter.podspec
+macos/Flutter/Generated.xcconfig
+macos/Flutter/AppFrameworkInfo.plist
+macos/Pods/
+macos/Runner.xcworkspace/
+macos/Podfile.lock
+
+# Web
+web/.dart_tool/
+web/build/
+
+# Linux
+linux/flutter/
+
+# Windows
+windows/flutter/
+
+# Other
+*.log
+*.tmp
+*.temp
+
+# Local environment
+.env
