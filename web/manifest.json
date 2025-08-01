@@ -1,11 +1,11 @@
 {
-    "name": "local_keep_test",
-    "short_name": "local_keep_test",
+    "name": "Local Keep - Encrypted Notes",
+    "short_name": "Local Keep",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
     "theme_color": "#0175C2",
-    "description": "A new Flutter project.",
+    "description": "A secure, local-first notes application with AES encryption.",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [

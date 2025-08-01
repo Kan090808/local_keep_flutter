@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:io';
 import 'dart:math';
 import 'dart:typed_data';
 import 'package:encrypt/encrypt.dart' as encrypt;
@@ -7,9 +6,9 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:pointycastle/export.dart' as pc;
 import 'package:provider/provider.dart';
+import 'storage_service.dart';
 
 // Model for a Note
 class Note {
@@ -79,7 +78,7 @@ Map<String, String> _encryptInBackground(EncryptionData data) {
 class AppState extends ChangeNotifier {
   List<Note> _notes = [];
   encrypt.Key? _key;
-  File? _notesFile;
+  late StorageService _storage;
 
   List<Note> get notes => _notes;
   encrypt.Key? get key => _key;
@@ -89,33 +88,30 @@ class AppState extends ChangeNotifier {
   }
 
   Future<void> _initializeStorage() async {
-    final directory = await getApplicationDocumentsDirectory();
-    _notesFile = File('${directory.path}/encrypted_notes.json');
+    _storage = StorageFactory.getStorageService();
     await _loadNotes();
   }
 
   Future<void> _loadNotes() async {
-    if (_notesFile?.existsSync() == true) {
-      try {
-        final jsonString = await _notesFile!.readAsString();
+    try {
+      final jsonString = await _storage.read('encrypted_notes');
+      if (jsonString != null) {
         final List<dynamic> jsonList = json.decode(jsonString);
         _notes = jsonList.map((json) => Note.fromJson(json)).toList();
         notifyListeners();
-      } catch (e) {
-        print('Error loading notes: $e');
       }
+    } catch (e) {
+      print('Error loading notes: $e');
     }
   }
 
   Future<void> _saveNotes() async {
-    if (_notesFile != null) {
-      try {
-        final jsonList = _notes.map((note) => note.toJson()).toList();
-        final jsonString = json.encode(jsonList);
-        await _notesFile!.writeAsString(jsonString);
-      } catch (e) {
-        print('Error saving notes: $e');
-      }
+    try {
+      final jsonList = _notes.map((note) => note.toJson()).toList();
+      final jsonString = json.encode(jsonList);
+      await _storage.write('encrypted_notes', jsonString);
+    } catch (e) {
+      print('Error saving notes: $e');
     }
   }
 
